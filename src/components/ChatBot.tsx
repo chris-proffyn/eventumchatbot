@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { theme } from '../theme';
 import { FaPaperPlane, FaTimes } from 'react-icons/fa';
 import { FiEdit2, FiRotateCw } from 'react-icons/fi';
+import { ANNABEL_COLOUR_LOGO_URL, ANNABEL_MONO_LOGO_URL } from '../config/assets';
 
 interface Message {
   text: string;
@@ -357,7 +358,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, onClose }) => {
     <ChatBotContainer $isOpen={isOpen}>
       <ChatHeader>
         <HeaderLeft>
-          <img src="/evielogo.svg" alt="Annabel Logo" style={{ width: 28, height: 28, marginRight: 8, borderRadius: '50%' }} />
+          <img src={ANNABEL_COLOUR_LOGO_URL} alt="Annabel Logo" style={{ width: 28, height: 28, marginRight: 8, borderRadius: '50%' }} />
           <HeaderTitle>Annabel</HeaderTitle>
         </HeaderLeft>
         <CloseButton onClick={onClose}>
@@ -428,7 +429,7 @@ export const ChatBot: React.FC<ChatBotProps> = ({ isOpen, onClose }) => {
         })}
         {isTyping && (
           <TypingIndicator>
-            <img src="/eviemonologo.svg" alt="Annabel Mono Logo" style={{ width: 16, height: 16, marginRight: 6, verticalAlign: 'middle' }} />
+            <img src={ANNABEL_MONO_LOGO_URL} alt="Annabel Mono Logo" style={{ width: 16, height: 16, marginRight: 6, verticalAlign: 'middle' }} />
             Annabel is typing...
           </TypingIndicator>
         )}

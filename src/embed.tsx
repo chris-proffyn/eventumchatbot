@@ -18,15 +18,36 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
+// Prevent the embed script from running multiple times if loaded twice
+if ((window as any).__EVI_CHATBOT_EMBED_LOADED__) {
+  // Already loaded, exit early - but still expose API if it doesn't exist
+  if (!window.EviChatBot) {
+    window.EviChatBot = {
+      init: () => {},
+      close: () => {},
+    };
+  }
+} else {
+  (window as any).__EVI_CHATBOT_EMBED_LOADED__ = true;
+
 // Store references for cleanup
 let currentRoot: ReactDOM.Root | null = null;
 let currentContainer: HTMLElement | null = null;
+let isInitializing = false;
 
 function injectChatBot() {
-  // Prevent multiple instances
-  if (currentContainer && document.getElementById('evi-chat-container')) {
+  // Prevent multiple instances - check both our reference and DOM
+  const existingContainer = document.getElementById('evi-chat-container');
+  if (existingContainer || currentContainer || isInitializing) {
+    // If container exists but our reference is lost, restore it
+    if (existingContainer && !currentContainer) {
+      currentContainer = existingContainer;
+    }
     return;
   }
+
+  // Set flag to prevent concurrent initialization
+  isInitializing = true;
 
   const container = document.createElement('div');
   container.id = 'evi-chat-container';
@@ -46,6 +67,7 @@ function injectChatBot() {
   const root = ReactDOM.createRoot(container);
   currentRoot = root;
   currentContainer = container;
+  isInitializing = false; // Clear flag after container is created
 
   const handleClose = () => {
     try {
@@ -57,31 +79,36 @@ function injectChatBot() {
   };
 
   root.render(
-    <React.StrictMode>
+    <>
       <GlobalStyles />
       <ChatBotV2 isOpen={true} onClose={handleClose} />
-    </React.StrictMode>
+    </>
   );
 }
 
 function closeChatBot() {
-  if (currentContainer) {
-    const container = currentContainer;
+  // Also check DOM in case reference is lost
+  const container = currentContainer || document.getElementById('evi-chat-container');
+  if (container) {
     if (currentRoot) {
       try {
         currentRoot.unmount();
       } catch {}
     }
-    container.remove();
+    try {
+      container.remove();
+    } catch {}
     currentRoot = null;
     currentContainer = null;
+    isInitializing = false;
   }
 }
 
-// Expose global API for embedding
-window.EviChatBot = {
-  init: injectChatBot,
-  close: closeChatBot,
-};
+  // Expose global API for embedding
+  window.EviChatBot = {
+    init: injectChatBot,
+    close: closeChatBot,
+  };
+}
 
 

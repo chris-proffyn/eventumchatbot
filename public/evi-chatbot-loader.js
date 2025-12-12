@@ -2,6 +2,9 @@
   if (window.__EVI_CHATBOT_LOADER__) return;
   window.__EVI_CHATBOT_LOADER__ = true;
 
+  // Bump this version string on each production release
+  const ANNABEL_CHATBOT_VERSION = "2025-12-12-03";
+
   function loadScript(src, onload) {
     var s = document.createElement('script');
     s.src = src;
@@ -19,8 +22,8 @@
     setTimeout(init, 50);
   }
 
-  // Load from your S3 bucket domain
-  loadScript('https://eventumortho.click/evi-chatbot.js', init);
+  // Load from your S3 bucket domain with version for cache-busting
+  loadScript(`https://eventumortho.click/evi-chatbot.js?v=${ANNABEL_CHATBOT_VERSION}`, init);
 })();
 
 

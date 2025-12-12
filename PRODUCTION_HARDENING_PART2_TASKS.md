@@ -43,7 +43,7 @@ This document outlines tasks to implement two critical production improvements:
 - [ ] Add version constant at top of file:
   ```js
   // Bump this version string on each production release
-  const ANNABEL_CHATBOT_VERSION = "2025-12-12-01";
+  const ANNABEL_CHATBOT_VERSION = "2025-12-12-03";
   ```
 - [ ] Update script.src to include version:
   ```js
@@ -66,7 +66,7 @@ This document outlines tasks to implement two critical production improvements:
 - [ ] Add version constant to each loader utility file
 - [ ] Update default URL to include version parameter:
   ```ts
-  const ANNABEL_CHATBOT_VERSION = "2025-12-12-01";
+  const ANNABEL_CHATBOT_VERSION = "2025-12-12-03";
   const { src = `https://eventumortho.click/evi-chatbot-loader.js?v=${ANNABEL_CHATBOT_VERSION}` } = options;
   ```
 - [ ] Ensure version is applied when constructing script URLs
@@ -87,7 +87,7 @@ This document outlines tasks to implement two critical production improvements:
   <script src="https://eventumortho.click/evi-chatbot-loader.js" async></script>
   
   <!-- To: -->
-  <script src="https://eventumortho.click/evi-chatbot-loader.js?v=2025-12-12-01" async></script>
+  <script src="https://eventumortho.click/evi-chatbot-loader.js?v=2025-12-12-03" async></script>
   ```
 - [ ] Add note in documentation:
   > "Bump the `ANNABEL_CHATBOT_VERSION` constant and query parameter whenever you deploy a new version."
@@ -242,7 +242,7 @@ This document outlines tasks to implement two critical production improvements:
 
 ## Notes
 
-- **Version Format:** Use `YYYY-MM-DD-NN` format (e.g., `2025-12-12-01`)
+- **Version Format:** Use `YYYY-MM-DD-NN` format (e.g., `2025-12-12-03`)
 - **Version Bump:** Increment the last number for each release, or change date for major releases
 - **Testing:** Always test locally before deploying to S3
 - **Deployment:** After version bump, deploy both loader and main bundle to S3

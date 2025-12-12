@@ -10,7 +10,9 @@ mkdir evie-loader-test && cd evie-loader-test
 
 ## 2) Add a minimal index.html
 
-Create `index.html` with the content below. It loads the remote loader at `https://eventumortho.click/evi-chatbot-loader.js`, which in turn loads `https://eventumortho.click/evi-chatbot.js` and calls `window.EviChatBot.init()`.
+Create `index.html` with the content below. It loads the remote loader at `https://eventumortho.click/evi-chatbot-loader.js?v=2025-12-12-03`, which in turn loads `https://eventumortho.click/evi-chatbot.js?v=2025-12-12-03` and calls `window.EviChatBot.init()`.
+
+**Note:** Bump the version query parameter (`?v=2025-12-12-03`) whenever a new version is deployed.
 
 ```html
 <!doctype html>
@@ -36,7 +38,8 @@ Create `index.html` with the content below. It loads the remote loader at `https
     </main>
 
     <!-- Remote loader (kept separate from existing sites) -->
-    <script src="https://eventumortho.click/evi-chatbot-loader.js" async></script>
+    <!-- Bump the version parameter (?v=...) on each release -->
+    <script src="https://eventumortho.click/evi-chatbot-loader.js?v=2025-12-12-03" async></script>
   </body>
   </html>
 ```
@@ -74,7 +77,7 @@ If you want to delay the widget (e.g., after a user click), remove the `<script>
 <script>
   document.getElementById('show-chat').addEventListener('click', function () {
     var s = document.createElement('script');
-    s.src = 'https://eventumortho.click/evi-chatbot-loader.js';
+    s.src = 'https://eventumortho.click/evi-chatbot-loader.js?v=2025-12-12-03';
     s.async = true;
     document.body.appendChild(s);
   });

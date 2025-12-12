@@ -7,6 +7,12 @@ export default defineConfig({
   define: {
     'process.env.NODE_ENV': JSON.stringify('production'),
   },
+  esbuild: {
+    define: {
+      'process.env.NODE_ENV': '"production"',
+    },
+    drop: ['console', 'debugger'],
+  },
   build: {
     lib: {
       entry: './src/embed.tsx',

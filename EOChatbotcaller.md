@@ -3,13 +3,15 @@
 Use these drop-in instructions to add the Annabel chatbot to any existing website or app.
 
 ## 1) Easiest: Auto-load on page load
-Add this tag to your site’s HTML (e.g., `public/index.html`, root layout/template):
+Add this tag to your site's HTML (e.g., `public/index.html`, root layout/template):
 
 ```html
-<script src="https://eventumortho.click/evi-chatbot-loader.js" async></script>
+<script src="https://eventumortho.click/evi-chatbot-loader.js?v=2025-12-12-03" async></script>
 ```
 
-- The loader fetches `https://eventumortho.click/evi-chatbot.js` and calls `window.EviChatBot.init()` to render the widget in the bottom-right.
+**Note:** Bump the version query parameter (`?v=2025-12-12-03`) whenever a new version is deployed to ensure browsers fetch the latest bundle.
+
+- The loader fetches `https://eventumortho.click/evi-chatbot.js?v=2025-12-12-03` and calls `window.EviChatBot.init()` to render the widget in the bottom-right.
 - To reopen after the user closes it, call:
 
 ```html
@@ -28,7 +30,8 @@ type LoaderOptions = {
 };
 
 export function loadAnnabelChatbot(options: LoaderOptions = {}) {
-  const { src = 'https://eventumortho.click/evi-chatbot-loader.js' } = options;
+  // Version is automatically included in the default URL
+  const { src = 'https://eventumortho.click/evi-chatbot-loader.js?v=2025-12-12-03' } = options;
 
   return new Promise<void>((resolve, reject) => {
     // Already loaded?

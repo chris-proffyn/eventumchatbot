@@ -65,7 +65,7 @@ Closes and removes the chatbot widget. Cleans up React root and DOM elements.
 ### Example Usage
 
 ```html
-<script src="https://eventumortho.click/evi-chatbot.js"></script>
+<script src="https://eventumortho.click/evi-chatbot.js?v=2025-12-12-03"></script>
 <script>
   // Open chatbot
   window.EviChatBot.init();
@@ -74,6 +74,8 @@ Closes and removes the chatbot widget. Cleans up React root and DOM elements.
   window.EviChatBot.close();
 </script>
 ```
+
+**Note:** Bump the version query parameter (`?v=2025-12-12-03`) whenever you deploy a new version to ensure browsers fetch the latest bundle.
 
 ## Deployment
 
