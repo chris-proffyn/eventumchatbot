@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/evielogo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventum Orthopaedics - AI Chatbot Assistant</title>
+    <meta name="description" content="Get instant answers to your orthopaedic questions with Annabel AI and Annabel v2, powered by advanced AI technology." />
+    <meta name="keywords" content="orthopaedics, AI chatbot, medical assistant, Eventum, Annabel" />
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/evielogo.svg" as="image" type="image/svg+xml" />
+    <link rel="preload" href="/eviemonologo.svg" as="image" type="image/svg+xml" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Eventum Orthopaedics - AI Chatbot Assistant" />
+    <meta property="og:description" content="Get instant answers to your orthopaedic questions with Annabel AI and Annabel v2, powered by advanced AI technology." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/evielogo.svg" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Eventum Orthopaedics - AI Chatbot Assistant" />
+    <meta name="twitter:description" content="Get instant answers to your orthopaedic questions with Annabel AI and Annabel v2, powered by advanced AI technology." />
+    <meta name="twitter:image" content="/evielogo.svg" />
+    
+    <!-- Additional Meta Tags -->
+    <meta name="author" content="Eventum Orthopaedics" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#4A90E2" />
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    
+    <!-- Performance Optimizations -->
+    <link rel="dns-prefetch" href="//proffyn.app.n8n.cloud" />
+    <link rel="preconnect" href="//proffyn.app.n8n.cloud" />
+    
+    <style>
+      /* Critical CSS for initial render */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #f5f5f5;
+      }
+      
+      #root {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      /* Loading spinner */
+      .loading-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #4A90E2;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .loading-text {
+        color: #4A90E2;
+        font-size: 18px;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Loading state while React app initializes -->
+      <div class="loading-spinner">
+        <img src="/evielogo.svg" alt="Eventum Logo" style="width: 80px; height: 80px; margin-bottom: 20px;" />
+        <div class="spinner"></div>
+        <div class="loading-text">Loading Eventum AI Assistant...</div>
+      </div>
+    </div>
+    
+    <!-- React Application Entry Point -->
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Fallback for JavaScript disabled -->
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+        <h1>JavaScript Required</h1>
+        <p>This application requires JavaScript to function properly. Please enable JavaScript in your browser and refresh the page.</p>
+        <p>If you continue to have issues, please contact support.</p>
+      </div>
+    </noscript>
+    
+    <!-- Error boundary for React app -->
+    <script>
+      window.addEventListener('error', function(e) {
+        console.error('Application error:', e.error);
+        const root = document.getElementById('root');
+        if (root) {
+          root.innerHTML = `
+            <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+              <h1>Something went wrong</h1>
+              <p>We're sorry, but something unexpected happened. Please refresh the page and try again.</p>
+              <button onclick="location.reload()" style="padding: 10px 20px; background: #4A90E2; color: white; border: none; border-radius: 5px; cursor: pointer;">Refresh Page</button>
+            </div>
+          `;
+        }
+      });
+    </script>
+  </body>
+</html>
