@@ -3,14 +3,30 @@ import ReactDOM from 'react-dom/client';
 import { ChatBotV2 } from './components/ChatBotV2';
 import { createGlobalStyle } from 'styled-components';
 
+declare global {
+  interface Window {
+    EviChatBot?: {
+      init: () => void;
+      close: () => void;
+    };
+  }
+}
+
 const GlobalStyles = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
 `;
 
+// Store references for cleanup
+let currentRoot: ReactDOM.Root | null = null;
+let currentContainer: HTMLElement | null = null;
+
 function injectChatBot() {
-  if (document.getElementById('evi-chat-container')) return;
+  // Prevent multiple instances
+  if (currentContainer && document.getElementById('evi-chat-container')) {
+    return;
+  }
 
   const container = document.createElement('div');
   container.id = 'evi-chat-container';
@@ -28,11 +44,16 @@ function injectChatBot() {
   document.body.appendChild(container);
 
   const root = ReactDOM.createRoot(container);
+  currentRoot = root;
+  currentContainer = container;
+
   const handleClose = () => {
     try {
       root.unmount();
     } catch {}
     container.remove();
+    currentRoot = null;
+    currentContainer = null;
   };
 
   root.render(
@@ -43,9 +64,24 @@ function injectChatBot() {
   );
 }
 
-// Expose a simple global API for embedding
-(window as any).EviChatBot = {
+function closeChatBot() {
+  if (currentContainer) {
+    const container = currentContainer;
+    if (currentRoot) {
+      try {
+        currentRoot.unmount();
+      } catch {}
+    }
+    container.remove();
+    currentRoot = null;
+    currentContainer = null;
+  }
+}
+
+// Expose global API for embedding
+window.EviChatBot = {
   init: injectChatBot,
+  close: closeChatBot,
 };
 
 

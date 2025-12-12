@@ -4,6 +4,9 @@ import react from '@vitejs/plugin-react'
 // Separate build config to produce an embeddable library bundle
 export default defineConfig({
   plugins: [react()],
+  define: {
+    'process.env.NODE_ENV': JSON.stringify('production'),
+  },
   build: {
     lib: {
       entry: './src/embed.tsx',
@@ -22,6 +25,7 @@ export default defineConfig({
     },
     emptyOutDir: false,
     outDir: 'dist',
+    minify: 'terser',
   },
 })
 

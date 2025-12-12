@@ -28,11 +28,51 @@ npm install
 # Run development server
 npm run dev
 
-# Build for production
-npm run build
+# Build for production (SPA)
+npm run build:app
 
 # Build embeddable library bundle
-npx vite build -c vite.lib.config.ts
+npm run build:lib
+
+# Build both app and library
+npm run build:all
+```
+
+## Building the Library Bundle
+
+To build the embeddable chatbot library:
+
+```bash
+npm run build:lib
+```
+
+This creates `dist/evi-chatbot.js` - a self-contained IIFE bundle that can be loaded via `<script>` tag. The bundle:
+- Is minified and optimized for production
+- Contains no runtime dependencies on `process.env`
+- Includes React and all dependencies (self-contained)
+- Exposes `window.EviChatBot` global API
+
+## Global API Reference
+
+The library exposes `window.EviChatBot` with the following methods:
+
+### `EviChatBot.init()`
+Opens and renders the chatbot widget. Safe to call multiple times (will not create duplicate widgets).
+
+### `EviChatBot.close()`
+Closes and removes the chatbot widget. Cleans up React root and DOM elements.
+
+### Example Usage
+
+```html
+<script src="https://eventumortho.click/evi-chatbot.js"></script>
+<script>
+  // Open chatbot
+  window.EviChatBot.init();
+  
+  // Later, close it
+  window.EviChatBot.close();
+</script>
 ```
 
 ## Deployment
@@ -41,8 +81,7 @@ The app is deployed to S3 at `eventumortho.click`:
 
 ```bash
 # Build both app and library
-npm run build
-npx vite build -c vite.lib.config.ts
+npm run build:all
 
 # Deploy to S3
 aws s3 sync dist s3://eventumortho.click --delete
@@ -50,7 +89,9 @@ aws s3 sync dist s3://eventumortho.click --delete
 
 ## Embedding the Chatbot
 
-See `eo-chatbot-kit/README.md` for instructions on embedding the chatbot into other websites.
+See `eo-chatbot-kit/README.md` for detailed instructions on embedding the chatbot into other websites.
+
+For quick testing, use `embed-test.html` in the project root to test the library bundle locally.
 
 ## Environment Variables
 

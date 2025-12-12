@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot Embed Test</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      margin: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border: 2px solid #053159;
+      background: white;
+      color: #053159;
+      border-radius: 4px;
+    }
+    button:hover {
+      background: #053159;
+      color: white;
+    }
+    .status {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #f5f5f5;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chatbot Embed Test</h1>
+  <p>This page tests the embeddable chatbot library.</p>
+  
+  <div>
+    <button onclick="openChat()">Open Chatbot</button>
+    <button onclick="closeChat()">Close Chatbot</button>
+    <button onclick="checkAPI()">Check API</button>
+  </div>
+
+  <div class="status" id="status">
+    <strong>Status:</strong> Ready
+  </div>
+
+  <script src="./dist/evi-chatbot.js"></script>
+  <script>
+    function updateStatus(msg) {
+      document.getElementById('status').innerHTML = '<strong>Status:</strong> ' + msg;
+    }
+
+    function openChat() {
+      if (window.EviChatBot && window.EviChatBot.init) {
+        window.EviChatBot.init();
+        updateStatus('Chatbot opened');
+      } else {
+        updateStatus('ERROR: EviChatBot.init not found');
+      }
+    }
+
+    function closeChat() {
+      if (window.EviChatBot && window.EviChatBot.close) {
+        window.EviChatBot.close();
+        updateStatus('Chatbot closed');
+      } else {
+        updateStatus('ERROR: EviChatBot.close not found');
+      }
+    }
+
+    function checkAPI() {
+      const api = window.EviChatBot;
+      if (api) {
+        const hasInit = typeof api.init === 'function';
+        const hasClose = typeof api.close === 'function';
+        updateStatus(`API check: init=${hasInit}, close=${hasClose}`);
+      } else {
+        updateStatus('ERROR: window.EviChatBot not found');
+      }
+    }
+
+    // Auto-check on load
+    window.addEventListener('load', () => {
+      setTimeout(checkAPI, 100);
+    });
+  </script>
+</body>
+</html>
+
