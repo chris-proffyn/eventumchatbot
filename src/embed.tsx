@@ -35,6 +35,26 @@ let currentRoot: ReactDOM.Root | null = null;
 let currentContainer: HTMLElement | null = null;
 let isInitializing = false;
 
+// Clean up any orphaned containers on script load (in case of previous failed loads)
+function cleanupOrphanedContainers() {
+  const containers = document.querySelectorAll('#evi-chat-container');
+  if (containers.length > 0) {
+    // Remove all existing containers - we'll create a fresh one
+    containers.forEach((container) => {
+      try {
+        container.remove();
+      } catch {}
+    });
+  }
+}
+
+// Run cleanup immediately when script loads
+if (typeof document !== 'undefined' && document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', cleanupOrphanedContainers);
+} else {
+  cleanupOrphanedContainers();
+}
+
 function injectChatBot() {
   // Prevent multiple instances - check both our reference and DOM
   const existingContainer = document.getElementById('evi-chat-container');
