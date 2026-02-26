@@ -19,12 +19,13 @@ interface MessageProps {
 }
 
 const ChatBotContainer = styled.div<ChatBotContainerProps>`
-  position: fixed;
+  position: absolute;
   bottom: ${props => props.$isOpen ? '0' : '-100%'};
   right: 0;
   width: 100%;
   height: 100%;
-  max-height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
   background: white;
   border-radius: 10px 10px 0 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -32,15 +33,15 @@ const ChatBotContainer = styled.div<ChatBotContainerProps>`
   display: flex;
   flex-direction: column;
   z-index: 1000;
-  resize: both;
   overflow: auto;
 
   @media (min-width: ${theme.breakpoints.md}) {
-    width: 500px;
-    height: 600px;
-    right: 20px;
-    bottom: ${props => props.$isOpen ? '0' : '-600px'};
-    max-height: 90vh;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    right: 0;
+    bottom: ${props => props.$isOpen ? '0' : '-100%'};
   }
 `;
 

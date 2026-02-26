@@ -14,12 +14,28 @@
     document.body.appendChild(s);
   }
 
+  let initAttempts = 0;
+  const MAX_INIT_ATTEMPTS = 20; // 20 * 50ms = 1 second max wait
+
   function init() {
+    // Check if chatbot is already initialized and visible
+    if (document.getElementById('evi-chat-container')) {
+      return; // Already initialized, don't call again
+    }
+
     if (window.EviChatBot && typeof window.EviChatBot.init === 'function') {
-      try { window.EviChatBot.init(); } catch (e) { console.error('EviChatBot init error:', e); }
+      try { 
+        window.EviChatBot.init(); 
+      } catch (e) { 
+        console.error('EviChatBot init error:', e); 
+      }
       return;
     }
-    setTimeout(init, 50);
+    
+    initAttempts++;
+    if (initAttempts < MAX_INIT_ATTEMPTS) {
+      setTimeout(init, 50);
+    }
   }
 
   // Load from your S3 bucket domain with version for cache-busting

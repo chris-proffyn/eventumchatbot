@@ -79,15 +79,42 @@ Closes and removes the chatbot widget. Cleans up React root and DOM elements.
 
 ## Deployment
 
-The app is deployed to S3 at `eventumortho.click`:
+The app is deployed to S3 at `eventumortho.click` with CloudFront CDN:
+
+```bash
+# Automated deployment (recommended)
+npm run deploy
+```
+
+This will:
+1. Build both app and library bundles
+2. Upload files to S3 with proper cache headers
+3. Invalidate CloudFront cache for updated files
+
+### Manual Deployment
+
+If you need to deploy manually:
 
 ```bash
 # Build both app and library
 npm run build:all
 
-# Deploy to S3
-aws s3 sync dist s3://eventumortho.click --delete
+# Upload critical files
+aws s3 cp dist/evi-chatbot.js s3://eventumortho.click/evi-chatbot.js \
+  --cache-control "public, max-age=31536000, immutable" \
+  --content-type "application/javascript"
+
+aws s3 cp public/evi-chatbot-loader.js s3://eventumortho.click/evi-chatbot-loader.js \
+  --cache-control "public, max-age=31536000, immutable" \
+  --content-type "application/javascript"
+
+# Invalidate CloudFront cache
+aws cloudfront create-invalidation \
+  --distribution-id E2Q3EB0DPEY10J \
+  --paths "/evi-chatbot.js" "/evi-chatbot-loader.js" "/index.html"
 ```
+
+**Note:** CloudFront cache invalidation can take 1-5 minutes to complete. The site is served via CloudFront at `https://eventumortho.click`.
 
 ## Embedding the Chatbot
 

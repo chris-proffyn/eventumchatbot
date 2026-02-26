@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ChatBotV2 } from './components/ChatBotV2';
 import { createGlobalStyle } from 'styled-components';
@@ -74,13 +73,19 @@ function injectChatBot() {
   container.style.position = 'fixed';
   container.style.bottom = '20px';
   container.style.right = '20px';
-  container.style.width = '400px';
+  container.style.width = '500px';
   container.style.height = '600px';
   container.style.zIndex = '9999';
   container.style.borderRadius = '8px';
-  container.style.overflow = 'hidden';
+  container.style.overflow = 'auto'; // Changed from 'hidden' to 'auto' to allow resize handle
   container.style.boxShadow = '0 8px 20px rgba(0,0,0,0.3)';
   container.style.backgroundColor = 'white';
+  // Make resizable with reasonable min/max constraints
+  container.style.resize = 'both';
+  container.style.minWidth = '300px';
+  container.style.minHeight = '400px';
+  container.style.maxWidth = '90vw';
+  container.style.maxHeight = '90vh';
 
   document.body.appendChild(container);
 
@@ -101,7 +106,9 @@ function injectChatBot() {
   root.render(
     <>
       <GlobalStyles />
-      <ChatBotV2 isOpen={true} onClose={handleClose} />
+      <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative' }}>
+        <ChatBotV2 isOpen={true} onClose={handleClose} />
+      </div>
     </>
   );
 }
