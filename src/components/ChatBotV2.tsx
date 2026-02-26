@@ -204,7 +204,7 @@ function renderMarkdownLinks(text: string) {
 export const ChatBotV2: React.FC<ChatBotV2Props> = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
-      text: "Hello, I'm Annabel v2, the enhanced Eventum Orthopaedics chatbot. What would you like to know about Eventum, its people and products?",
+      text: "Hello, I'm Annabel, the enhanced Eventum Orthopaedics chatbot. What would you like to know about Eventum, its people and products?",
       isUser: false
     }
   ]);
@@ -361,7 +361,7 @@ export const ChatBotV2: React.FC<ChatBotV2Props> = ({ isOpen, onClose }) => {
       <ChatHeader>
         <HeaderLeft>
           <img src={ANNABEL_COLOUR_LOGO_URL} alt="Annabel v2 Logo" style={{ width: 28, height: 28, marginRight: 8, borderRadius: '50%' }} />
-          <HeaderTitle>Annabel v2</HeaderTitle>
+          <HeaderTitle>Annabel</HeaderTitle>
         </HeaderLeft>
         <CloseButton onClick={onClose}>
           <FaTimes size={20} />
